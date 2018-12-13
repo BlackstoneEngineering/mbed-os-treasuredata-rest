@@ -41,7 +41,7 @@ public:
 		int x = 0;
         x = sprintf(urlbuff,TDURL,database,table,apikey);
         urlbuff[x] = 0; // null terminate string
-        printf("\r\n Sending to TDURL: %s",urlbuff);
+        printf("\r\n TD Initialized, will send data to TDURL: %s",urlbuff);
 	}
 
 	// Input expected to be JSON string
@@ -65,6 +65,7 @@ public:
 	        post_res = post_req->send(keyvalue, size);
 	        if (!post_res) {
 	            printf("HttpRequest failed (error code %d)\n", post_req->get_error());
+	            delete post_req;
 	            return 1;
 	        }
 
