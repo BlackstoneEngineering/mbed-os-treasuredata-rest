@@ -19,9 +19,10 @@
 
 
 #include "mbed.h"
-#include "http_request.h"
+#include "https_request.h"
+#include "treasuredata-sslcert.h"
 // #define  TDURL "http://in.treasuredata.com/postback/v3/event/{database}/{table}?td_write_key={APIKEY}"
-const char *TDURL = "http://in.treasuredata.com/postback/v3/event/%s/%s?td_write_key=%s";
+const char *TDURL = "https://in.treasuredata.com/postback/v3/event/%s/%s?td_write_key=%s";
 #define  URL_SIZE 200
 #define  POST_BUFFER_SIZE 200
 
@@ -49,11 +50,11 @@ public:
 	int sendData(char * keyvalue, uint32_t size){
 		{
 			// char buffer [POST_BUFFER_SIZE] = {0}; // use for data
-			HttpRequest* post_req;
+			HttpsRequest* post_req;
 	        HttpResponse* post_res;
 	        int x = 0; // use to check size of arrays
 
-	        post_req = new HttpRequest(network, HTTP_POST, urlbuff);
+	        post_req = new HttpsRequest(network,SSL_CA_PEM, HTTP_POST, urlbuff);
 	        post_req->set_header("Content-type", "application/json");
 	        post_req->set_header("Accept","text/plain");
 
@@ -64,13 +65,13 @@ public:
 
 	        post_res = post_req->send(keyvalue, size);
 	        if (!post_res) {
-	            printf("HttpRequest failed (error code %d)\n", post_req->get_error());
+	            printf("HttpsRequest failed (error code %d)\n", post_req->get_error());
 	            delete post_req;
 	            return 1;
 	        }
 
 	        #ifdef TD_DEBUG
-	        	printf("\n----- HTTP POST response -----\n");
+	        	printf("\n----- HTTPS POST response -----\n");
 	        	dump_response(post_res);
 	        #endif
 	        
