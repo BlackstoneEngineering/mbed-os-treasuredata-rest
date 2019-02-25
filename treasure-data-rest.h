@@ -65,7 +65,7 @@ public:
 
 	        post_res = post_req->send(keyvalue, size);
 	        if (!post_res) {
-	            printf("HttpsRequest failed (error code %d)\n", post_req->get_error());
+	            printf("\r\nHttpsRequest failed (error code %d)\n", post_req->get_error());
 	            delete post_req;
 	            return 1;
 	        }
