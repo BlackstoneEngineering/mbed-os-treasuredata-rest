@@ -32,7 +32,7 @@ class TreasureData_RESTAPI {
 
 public:
 
-	TreasureData_RESTAPI(NetworkInterface* aNetwork,char* aDatabase, char* aTable, const char *aAPIKey, const char *TDURL = TDURL){
+	TreasureData_RESTAPI(NetworkInterface* aNetwork,char* aDatabase, char* aTable, const char *aAPIKey){
 		apikey 		= aAPIKey;
 		network 	= aNetwork;
 		table 		= aTable;
@@ -83,6 +83,7 @@ public:
 	        #endif
 	        
 	        delete post_req;
+	        return 0;
 		}
 	}
 
