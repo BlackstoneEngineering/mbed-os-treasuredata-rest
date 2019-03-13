@@ -42,8 +42,9 @@ public:
 		int x = 0;
         x = sprintf(urlbuff,TDURL,database,table);
         urlbuff[x] = 0; // null terminate string
+#if TD_DEBUG
         printf("\r\n TD Initialized, will send data to TDURL: %s",urlbuff);
-
+#endif
         // Assemble TD APIKey
         x = 0;
         x = sprintf(apikeybuff,"%s",apikey);
@@ -72,7 +73,9 @@ public:
 
 	        post_res = post_req->send(keyvalue, size);
 	        if (!post_res) {
+				#if TD_DEBUG
 	            printf("\r\nHttpsRequest failed (error code %d)\n", post_req->get_error());
+				#endif
 	            delete post_req;
 	            return 1;
 	        }
