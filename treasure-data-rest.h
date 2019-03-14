@@ -24,7 +24,6 @@
 // #define  TDURL "http://in.treasuredata.com/postback/v3/event/{database}/{table}?td_write_key={APIKEY}"
 const char *TDURL = "https://in.treasuredata.com/postback/v3/event/%s/%s";
 #define  URL_SIZE 200
-#define  POST_BUFFER_SIZE 200
 
 #define TD_DEBUG false
 
@@ -56,7 +55,6 @@ public:
 	// EX) "{\"key\":\"value\",}"
 	int sendData(char * keyvalue, uint32_t size){
 		{
-			// char buffer [POST_BUFFER_SIZE] = {0}; // use for data
 			HttpsRequest* post_req;
 	        HttpResponse* post_res;
 	        int x = 0; // use to check size of arrays
@@ -94,10 +92,10 @@ private:
 
 	NetworkInterface* network;
 	const char * apikey;
-	char apikeybuff[50]={0};
+	char apikeybuff[50];
 	char * table;
 	char * database;
-	char urlbuff [URL_SIZE]={0};	// use for URL
+	char urlbuff [URL_SIZE];	// use for URL
 
 #if TD_DEBUG
 	void dump_response(HttpResponse* res) {
